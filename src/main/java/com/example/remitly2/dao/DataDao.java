@@ -19,5 +19,7 @@ public class DataDao {
     private Boolean isHeadquarter;
     
     private String swiftCode;
+
+    private String countryName;
     
 }

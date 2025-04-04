@@ -1,10 +1,14 @@
 package com.example.remitly2.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
 import com.example.remitly2.entity.Data;
+import com.example.remitly2.exception.ResourceNotFound;
+import com.example.remitly2.mapper.DataMapper;
 import com.example.remitly2.repository.DataRepository;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +18,7 @@ class DataGetter {
     private final DataRepository dataRepository;
 
     public ResponseHeadquarterSwiftCode getDetailsHeadquarterSwift(String swiftCode){
+        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
         ResponseHeadquarterSwiftCode result;
        
             Data data =dataRepository.findBySwiftCode(swiftCode);
@@ -22,21 +27,32 @@ class DataGetter {
                 dataRepository.findBranches(data.getSwiftCode())
                     .stream()
                         .map(d -> new DataDao(d.getId(),d.getAdress(),d.getCountryISO2(),
-                        d.getIsHeadquarter(),d.getSwiftCode())).toList()
+                        d.getIsHeadquarter(),d.getSwiftCode(),d.getCountryName())).toList()
             );
             result.setAdress(data.getSwiftCode());
             result.setCountryISO2(data.getCountryISO2());
             result.setId(data.getId());
             result.setIsHeadquarter(data.getIsHeadquarter());
             result.setSwiftCode(data.getSwiftCode());
+            result.setCountryName(data.getCountryName());
             return result;
         
     }
     public DataDao getDetailsFromBranch(String swiftCode){
+        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
         Data data =dataRepository.findBySwiftCode(swiftCode);
 
-        DataDao result = new DataDao(data.getId(), data.getAdress(),data.getCountryISO2(),data.getIsHeadquarter(),data.getSwiftCode());
-
+        //DataDao result = new DataDao(data.getId(), data.getAdress(),data.getCountryISO2(),data.getIsHeadquarter(),data.getSwiftCode(),data.getCountryName());
+        DataDao result =DataMapper.mapDatatoDataDao(data); 
         return result;
     }
+
+    public List<DataDao> getDataFromCountryISO2Code(String countryCodeISO2Code){
+        List<Data> data = dataRepository.findByCountryISO2(countryCodeISO2Code);
+        List<DataDao> result =data.stream().map((d->DataMapper.mapDatatoDataDao(d))).toList();
+        return result; 
+
+
+    }
+    
 }

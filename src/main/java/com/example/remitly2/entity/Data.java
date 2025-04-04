@@ -28,5 +28,7 @@ public class Data {
     private Boolean isHeadquarter;
     @Column(name="swift_code")
     private String swiftCode;
+    @Column(name="country_name")
+    private String countryName;
     
 }
