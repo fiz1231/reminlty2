@@ -1,4 +1,4 @@
-package com.example.remitly2.service.adder;
+package com.example.remitly2.service;
 
 import com.example.remitly2.repository.DataRepository;
 
@@ -12,7 +12,7 @@ import com.example.remitly2.mapper.DataMapper;
 
 @Service
 @AllArgsConstructor
- class DataAdder {
+class DataAdder {
     private final DataRepository dataRepository;
 
     public DataDao addData (DataDao dataDao){

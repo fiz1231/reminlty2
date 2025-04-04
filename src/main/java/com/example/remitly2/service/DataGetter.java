@@ -1,4 +1,4 @@
-package com.example.remitly2.service.getter;
+package com.example.remitly2.service;
 
 import org.springframework.stereotype.Service;
 

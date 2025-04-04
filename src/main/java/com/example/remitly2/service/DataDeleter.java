@@ -1,4 +1,4 @@
-package com.example.remitly2.service.deleter;
+package com.example.remitly2.service;
 
 
 
