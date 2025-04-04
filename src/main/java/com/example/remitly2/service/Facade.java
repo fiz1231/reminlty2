@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.remitly2.dao.DataDao;
-import com.example.remitly2.repository.DataRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 @Transactional
 public class Facade {
 
-    private final DataRepository dataRepository;
     private final DataAdder dataAdder;
     private final DataDeleter dataDeleter;
     private final DataGetter dataGetter;

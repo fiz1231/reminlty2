@@ -4,13 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -31,4 +31,12 @@ public class Data {
     @Column(name="country_name")
     private String countryName;
     
+    public Data(Long id,String address,String countryISO2,Boolean isHeadquarter, String swiftCode,String countryName){
+        this.id=id;
+        this.adress=address.toUpperCase();
+        this.countryISO2=countryISO2.toUpperCase();
+        this.countryName = countryName.toUpperCase();
+        this.isHeadquarter=isHeadquarter;
+        this.swiftCode=swiftCode.toUpperCase();
+    }
 }
