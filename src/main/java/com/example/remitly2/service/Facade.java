@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.remitly2.dao.DataDao;
+import com.example.remitly2.dao.ResponseFromCountryISO2;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,13 @@ public class Facade {
         }
         
     }
-    public List<DataDao> getDetailsfromCountryISO2Code(String countryISO2COde){
-        return dataGetter.getDataFromCountryISO2Code(countryISO2COde);
+    
+    public ResponseFromCountryISO2 getDataFromCountryISO2(String countryISO2){
+        ResponseFromCountryISO2 result =new ResponseFromCountryISO2();
+        result.setSwiftCodes(dataGetter.getDataFromCountryISO2Code(countryISO2));
+        result.setCountryISO2(countryISO2);
+        result.setCountryName(result.getSwiftCodes().get(0).getCountryName());
+        return result;
     }
 
 }

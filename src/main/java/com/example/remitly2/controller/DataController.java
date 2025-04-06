@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.remitly2.dao.DataDao;
+import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
+
 import com.example.remitly2.service.Facade;
 
 import lombok.AllArgsConstructor;
@@ -19,14 +21,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
-
 @RestController
 @RequestMapping("/v1/swift-codes")
 @AllArgsConstructor
 public class DataController {
+
+    
     private final Facade facade;
+
+   
     
     @GetMapping("{swiftCode}")
     public ResponseEntity<? super DataDao> getDataFromSwiftEntity (
@@ -54,8 +57,10 @@ public class DataController {
         facade.deleteData(swiftCode);
         return ResponseEntity.ok("Row with swiftCode:"+swiftCode+" deleted");
     }
-
-
-
-
+    @GetMapping("/country/{countryISO2code}")
+    public ResponseEntity<ResponseFromCountryISO2> getDataFromCountrtyISO2 (
+        @PathVariable(name="countryISO2code") String countryISO2code){
+           
+            return ResponseEntity.ok( facade.getDataFromCountryISO2(countryISO2code));
+        }
 }

@@ -18,8 +18,8 @@ public interface  DataRepository extends JpaRepository<Data,Long> {
     @Query(value = "select * from swift_data e where e.swift_code like Concat(:prefix,'%')" ,nativeQuery = true)
     List<Data> findBranches( @Param("prefix")String prefix);
 
-    @Query(value = "select from swift_Code where swift_data.countryISO2 = :countryISO2",nativeQuery = true)
-    List<Data> findByCountryISO2( String countryISO2);
+    @Query(value = "select * from swift_data e where e.country_iso = :countryISO2",nativeQuery = true)
+    List<Data> findByCountryISO2( @Param("countryISO2")String countryISO2);
 
    
     
