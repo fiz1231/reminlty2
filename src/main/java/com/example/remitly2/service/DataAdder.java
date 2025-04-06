@@ -23,4 +23,5 @@ class DataAdder {
         dataRepository.save(data);
         return dataDao;
     }
+    
 }

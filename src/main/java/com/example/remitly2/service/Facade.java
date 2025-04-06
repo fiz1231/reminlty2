@@ -33,7 +33,7 @@ public class Facade {
         {
             String subsequence = swiftCode.substring(0,swiftCode.length()-3);
             System.out.println(subsequence);
-            return dataGetter.getDetailsHeadquarterSwift(subsequence);}
+            return dataGetter.getDetailsHeadquarterSwift(subsequence.toUpperCase());}
         else{
         return dataGetter.getDetailsFromBranch(swiftCode.toUpperCase());
         }

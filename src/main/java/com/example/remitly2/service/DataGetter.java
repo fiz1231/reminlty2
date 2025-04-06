@@ -17,9 +17,14 @@ import lombok.AllArgsConstructor;
 class DataGetter {
     private final DataRepository dataRepository;
 
-    public ResponseHeadquarterSwiftCode getDetailsHeadquarterSwift(String swiftCode){
-        System.out.println(swiftCode+" swiftcode getter headquearter ------");
-        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).get().getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
+    public ResponseHeadquarterSwiftCode getDetailsHeadquarterSwift(String swiftCode) throws ResourceNotFound{
+        try{
+        if(dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).get().getId()).isEmpty()){
+            throw new ResourceNotFound("Resource for switch code : "+swiftCode+" not found");
+        }
+    }catch(ResourceNotFound e){
+        System.out.println(e.getMessage());
+    }
         ResponseHeadquarterSwiftCode result;
 
             Data data =dataRepository.findBySwiftCode(swiftCode).get();
@@ -41,9 +46,13 @@ class DataGetter {
     }
     public DataDao getDetailsFromBranch(String swiftCode){
         System.out.println(swiftCode+" swiftcode getter branch ------");
-        dataRepository.findById(
-            dataRepository.findBySwiftCode(swiftCode).get().getId()).orElseThrow(
-                ()->new ResourceNotFound("Resource not found"));
+        try{
+            if(dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).get().getId()).isEmpty()){
+                throw new ResourceNotFound("Resource for switch code : "+swiftCode+" not found");
+            }
+        }catch(ResourceNotFound e){
+            System.out.println(e.getMessage());
+        }
         
         Data data =dataRepository.findBySwiftCode(swiftCode).get();
 
