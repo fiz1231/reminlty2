@@ -18,16 +18,17 @@ class DataGetter {
     private final DataRepository dataRepository;
 
     public ResponseHeadquarterSwiftCode getDetailsHeadquarterSwift(String swiftCode){
-        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
+        System.out.println(swiftCode+" swiftcode getter headquearter ------");
+        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).get().getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
         ResponseHeadquarterSwiftCode result;
-       
-            Data data =dataRepository.findBySwiftCode(swiftCode);
+
+            Data data =dataRepository.findBySwiftCode(swiftCode).get();
+            System.out.println(dataRepository.findBranches(swiftCode).size());
 
             result = new ResponseHeadquarterSwiftCode(
                 dataRepository.findBranches(data.getSwiftCode())
                     .stream()
-                        .map(d -> new DataDao(d.getId(),d.getAdress(),d.getCountryISO2(),
-                        d.getIsHeadquarter(),d.getSwiftCode(),d.getCountryName())).toList()
+                        .map(d ->  DataMapper.mapDatatoDataDao(d)).toList()
             );
             result.setAdress(data.getSwiftCode());
             result.setCountryISO2(data.getCountryISO2());
@@ -39,8 +40,12 @@ class DataGetter {
         
     }
     public DataDao getDetailsFromBranch(String swiftCode){
-        dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).getId()).orElseThrow(()->new ResourceNotFound("Resource not found"));
-        Data data =dataRepository.findBySwiftCode(swiftCode);
+        System.out.println(swiftCode+" swiftcode getter branch ------");
+        dataRepository.findById(
+            dataRepository.findBySwiftCode(swiftCode).get().getId()).orElseThrow(
+                ()->new ResourceNotFound("Resource not found"));
+        
+        Data data =dataRepository.findBySwiftCode(swiftCode).get();
 
         //DataDao result = new DataDao(data.getId(), data.getAdress(),data.getCountryISO2(),data.getIsHeadquarter(),data.getSwiftCode(),data.getCountryName());
         DataDao result =DataMapper.mapDatatoDataDao(data); 

@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "swift_data")
 @Entity
+
 public class Data {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

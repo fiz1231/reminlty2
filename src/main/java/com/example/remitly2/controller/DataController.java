@@ -3,6 +3,7 @@ package com.example.remitly2.controller;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,10 @@ public class DataController {
     
     @GetMapping("{swiftCode}")
     public ResponseEntity<? super DataDao> getDataFromSwiftEntity (
-        @PathVariable(name="swiftCode") String swiftCode){
+         @PathVariable(name="swiftCode") String swiftCode){
+          
+    
+            
         DataDao body = facade.getDetailsFromSwiftCode(swiftCode);
         if (body instanceof ResponseHeadquarterSwiftCode e){
             return ResponseEntity.ok(e);
@@ -48,7 +52,7 @@ public class DataController {
     @DeleteMapping("{swift-code}")
     public ResponseEntity<String> deleteDataFromSwiftCode(@PathVariable(name="swift-code") String swiftCode){
         facade.deleteData(swiftCode);
-        return ResponseEntity.ok("Row with swiftCode:"+swiftCode);
+        return ResponseEntity.ok("Row with swiftCode:"+swiftCode+" deleted");
     }
 
 

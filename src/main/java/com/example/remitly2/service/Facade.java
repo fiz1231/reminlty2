@@ -27,9 +27,12 @@ public class Facade {
         dataDeleter.deleteData(swiftCode);
     }
     public DataDao getDetailsFromSwiftCode(String swiftCode){
+        System.out.println(swiftCode+"swift code facade---------------------");
        if(swiftCode.toUpperCase().endsWith("XXX"))
         {
-            return dataGetter.getDetailsHeadquarterSwift(swiftCode);}
+            String subsequence = swiftCode.substring(0,swiftCode.length()-3);
+            System.out.println(subsequence);
+            return dataGetter.getDetailsHeadquarterSwift(subsequence);}
         else{
         return dataGetter.getDetailsFromBranch(swiftCode.toUpperCase());
         }

@@ -1,0 +1,13 @@
+#adding new data v1/swift-code ; put
+{ 
+    
+    "adress":"test",
+    "countryISO2":"test",
+    "countryName":"test",
+    "isHeadquarter":true,
+    "swiftCode":"test"
+    
+}
+#getting data v1/swift-code/{swiftCode} ; get
+http://localhost:8080/v1/swift-codes/TEST2XXX
+http://localhost:8080/v1/swift-codes/TEST1

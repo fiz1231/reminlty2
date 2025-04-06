@@ -15,7 +15,7 @@ import com.example.remitly2.entity.Data;
     private final DataRepository dataRepository;
     // poprawi usuwanie przy swift codezie
     void deleteData(String swiftCode ){
-        Data data= dataRepository.findBySwiftCode(swiftCode);
+        Data data= dataRepository.findBySwiftCode(swiftCode).get();
         dataRepository.delete(data);
     }
 }
