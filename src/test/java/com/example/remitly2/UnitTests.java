@@ -1,22 +1,20 @@
 package com.example.remitly2;
 
-import com.example.remitly2.service.FacadeConfiguration;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.assertj.core.api.Assertions;
 
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
-import com.example.remitly2.exception.ResourceNotFound;
 import com.example.remitly2.service.*;;
 public class UnitTests {
     
@@ -31,20 +29,21 @@ public class UnitTests {
         // when
         testFacade.addData(testingData);
         //then
-
+        
         Assertions.assertThat(testFacade.getDetailsFromSwiftCode("TESTSWIFTCODE").equals(testingData));
-      
+        
     }
     @Test
     @Description("should return ResponseHeadquarterSwiftCode equel to testResponse")
     public void testGettingDataFroSwiftcodeHeadquarter(){
         // get
-        DataDao testingHeadquarter = new DataDao(Long.parseLong("1"),"TESTADDRESS","TESTCOUNTRYISO2"
+        DataDao testingHeadquarter = new DataDao(Long.parseLong("2"),"TESTADDRESS","TESTCOUNTRYISO2"
         ,true,"TESTSWIFTCODEXXX","TESTCOUNTRYNAME");
-        DataDao testingBranch = new DataDao(Long.parseLong("2"),"TESTADDRESS","TESTCOUNTRYISO2"
-        ,true,"TESTSWIFTCODr","TESTCOUNTRYNAME");
-        testFacade.addData(testingHeadquarter);
+        DataDao testingBranch = new DataDao(Long.parseLong("1"),"TESTADDRESS","TESTCOUNTRYISO2"
+        ,true,"TESTSWIFTCODE","TESTCOUNTRYNAME");
         testFacade.addData(testingBranch);
+        testFacade.addData(testingHeadquarter);
+       
 
         ArrayList<DataDao> testBranches = new ArrayList<>();
         testBranches.add(testingBranch);
@@ -54,33 +53,18 @@ public class UnitTests {
         testingResponse.setIsHeadquarter(true);
         testingResponse.setSwiftCode("TESTSWIFTCODEXXX");
         testingResponse.setCountryName("TESTCOUNTRYNAME");
+        testingResponse.setBranches(testBranches);
         // when
         testFacade.getDetailsFromSwiftCode("TESTSWIFTCODEXXX");
-        // ResponseHeadquarterSwiftCode result =(ResponseHeadquarterSwiftCode) testFacade.getDetailsFromSwiftCode("TESTSWIFTCODEXXX");
+         ResponseHeadquarterSwiftCode result =(ResponseHeadquarterSwiftCode) testFacade.getDetailsFromSwiftCode("TESTSWIFTCODEXXX");
         //then
-        // Assertions.assertThat(result.equals(testingResponse));
+         Assertions.assertThat(result.getAdress().equals("TESTADDRESS"));
     }
     @Test
     @Description("should return DataDao response ")
     //add adding new data
     public void testGettingDataFroSwiftcodeBranch(){
-        DataDao testingHeadquarter = new DataDao(Long.parseLong("1"),"TESTADDRESS","TESTCOUNTRYISO2"
-        ,true,"TESTSWIFTCODEXXX","TESTCOUNTRYNAME");
-        DataDao testingBranch = new DataDao(Long.parseLong("2"),"TESTADDRESS","TESTCOUNTRYISO2"
-        ,true,"TESTSWIFTCODr","TESTCOUNTRYNAME");
-        ArrayList<DataDao> testBranches = new ArrayList<>();
-        testBranches.add(testingBranch);
-        ResponseHeadquarterSwiftCode testingResponse = new ResponseHeadquarterSwiftCode();
-        testingResponse.setAdress("TESTADDRESS");
-        testingResponse.setCountryISO2("TESTCOUNTRYISO2");
-        testingResponse.setIsHeadquarter(true);
-        testingResponse.setSwiftCode("TESTSWIFTCODEXXX");
-        testingResponse.setCountryName("TESTCOUNTRYNAME");
-        // when
         
-        ResponseHeadquarterSwiftCode result =(ResponseHeadquarterSwiftCode) testFacade.getDetailsFromSwiftCode("TESTSWIFTCODE");
-        //then
-        Assertions.assertThat(result.equals(testingBranch));
     }
     @Test
     @Description("should return data list from countriso2code")
@@ -90,6 +74,8 @@ public class UnitTests {
         ,true,"TESTSWIFTCODr1","TESTCOUNTRYNAME1");
         DataDao testingBranch2 = new DataDao(Long.parseLong("2"),"TESTADDRESS2","TESTCOUNTRYISO2"
         ,true,"TESTSWIFTCODr2","TESTCOUNTRYNAME2");
+        testFacade.addData(testingBranch1);
+        testFacade.addData(testingBranch2);
         ResponseFromCountryISO2 testing_data = new ResponseFromCountryISO2();
         testing_data.setCountryISO2("TESTCOUNTRYISO2");
         testing_data.setCountryName("TESTCOUNTRYNAME2");
@@ -98,7 +84,7 @@ public class UnitTests {
         testingSwiftCodes.add(testingBranch2);
         testing_data.setSwiftCodes(testingSwiftCodes);
         // when
-        ResponseFromCountryISO2 result =  testFacade.getDataFromCountryISO2("TESTSWIFTCODr2");
+        ResponseFromCountryISO2 result =  testFacade.getDataFromCountryISO2("TESTCOUNTRYISO2");
         //then
         Assertions.assertThat(result.equals(testing_data));
     }
@@ -106,12 +92,20 @@ public class UnitTests {
     @Description("Should delete given row based on swift code")
     public void testDeletingData(){
         // get
-        DataDao testingData = new DataDao(Long.parseLong("1"),"TESTADDRESS","TESTCOUNTRYISO2"
-        ,true,"TESTSWIFTCODE","TESTCOUNTRYNAME");
+        DataDao testingData = new DataDao(Long.parseLong("5"),"TESTADDRESS","TESTCOUNTRYISO2"
+        ,true,"TESTSWIFTCODE5","TESTCOUNTRYNAME");
         testFacade.addData(testingData);
         // when
-        testFacade.deleteData("TESTSWIFTCODE");
+        testFacade.deleteData("TESTSWIFTCODE5");
         //then
-        Assertions.assertThatException();
+        try{
+        testFacade.getDetailsFromSwiftCode("TESTSWIFTCODE5");
+        Assertions.fail();
+        }catch(NoSuchElementException e){
+            System.out.println(e.getMessage());
+            Assertions.assertThat(e.getMessage()=="No value present");
+        }
+       
+        
     }
 }

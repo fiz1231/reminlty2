@@ -45,7 +45,7 @@ class DataGetter {
         
     }
     public DataDao getDetailsFromBranch(String swiftCode){
-        System.out.println(swiftCode+" swiftcode getter branch ------");
+        
         try{
             if(dataRepository.findById(dataRepository.findBySwiftCode(swiftCode).get().getId()).isEmpty()){
                 throw new ResourceNotFound("Resource for switch code : "+swiftCode+" not found");

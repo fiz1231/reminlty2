@@ -22,7 +22,8 @@ public class InMemoryDataRepository implements DataRepository {
     AtomicInteger id = new AtomicInteger();
     
         public Optional<Data> findBySwiftCode(String swiftCode){
-            return db.values().stream().filter((Data x)->x.getSwiftCode()==swiftCode).limit(1).findFirst();
+           
+            return db.values().stream().filter(x->x.getSwiftCode().startsWith(swiftCode)).findFirst();
         }
         public List<Data> findBranches(String prefix){
             return db.values().stream().filter((Data x )-> x.getSwiftCode().startsWith(prefix)).toList();
@@ -32,19 +33,21 @@ public class InMemoryDataRepository implements DataRepository {
          }
         @Override
         public Data save(Data inputRow) {
-            // TODO Auto-generated method stub
+         
             db.put(Long.valueOf(this.id.getAndIncrement()),inputRow);
             return inputRow;
         }
         @Override
         public void delete(Data data) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'delete'");
+           
+            Data removeObj = this.findById(data.getId()).getFirst();
+             Optional<Long> key =db.keySet().stream().filter(x->db.get(x).getAdress()==removeObj.getAdress()).findAny();
+            
+           db.remove(key.get());
         }
         @Override
         public List<Data> findById(Long id) {
-            // TODO Auto-generated method stub
-           this.db.values().stream().forEach(x -> System.out.println(x.getId()));
-           return this.db.values().stream().filter(x->x.getId()==id.longValue()).toList();
+           
+           return this.db.values().stream().filter(x->x.getId().longValue()==id.longValue()).toList();
         }
 }
