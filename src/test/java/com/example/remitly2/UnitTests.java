@@ -1,17 +1,10 @@
 package com.example.remitly2;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
-import org.springframework.http.ResponseEntity;
-
-import static org.assertj.core.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.assertj.core.api.Assertions;
-
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
@@ -64,7 +57,15 @@ public class UnitTests {
     @Description("should return DataDao response ")
     //add adding new data
     public void testGettingDataFroSwiftcodeBranch(){
-        
+        // get
+        DataDao testingBranch1 = new DataDao(Long.parseLong("1"),"TESTADDRESS1","TESTCOUNTRYISO21"
+        ,true,"TESTSWIFTCODr1","TESTCOUNTRYNAME1");
+        testFacade.addData(testingBranch1);
+        //when
+         // when
+         DataDao result =  testFacade.getDetailsFromSwiftCode("TESTSWIFTCODr1");
+         //then
+         Assertions.assertThat(result.equals(testingBranch1));
     }
     @Test
     @Description("should return data list from countriso2code")

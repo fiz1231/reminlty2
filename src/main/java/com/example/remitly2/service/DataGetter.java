@@ -27,7 +27,7 @@ class DataGetter {
     }
         ResponseHeadquarterSwiftCode result;
 
-            Data data =dataRepository.findBySwiftCode(swiftCode).get();
+            Data data =dataRepository.findBySwiftCode(swiftCode+"XXX").get();
             System.out.println(dataRepository.findBranches(swiftCode).size());
 
             result = new ResponseHeadquarterSwiftCode(
@@ -35,9 +35,9 @@ class DataGetter {
                     .stream()
                         .map(d ->  DataMapper.mapDatatoDataDao(d)).toList()
             );
-            result.setAdress(data.getSwiftCode());
+            result.setAdress(data.getAdress());
             result.setCountryISO2(data.getCountryISO2());
-            result.setId(data.getId());
+           
             result.setIsHeadquarter(data.getIsHeadquarter());
             result.setSwiftCode(data.getSwiftCode());
             result.setCountryName(data.getCountryName());

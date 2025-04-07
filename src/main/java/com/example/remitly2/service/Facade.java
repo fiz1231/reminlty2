@@ -1,12 +1,7 @@
 package com.example.remitly2.service;
-
-import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
-
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 

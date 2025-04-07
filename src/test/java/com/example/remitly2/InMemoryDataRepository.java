@@ -1,16 +1,11 @@
 package com.example.remitly2;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.example.remitly2.entity.Data;
 import com.example.remitly2.repository.DataRepository;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

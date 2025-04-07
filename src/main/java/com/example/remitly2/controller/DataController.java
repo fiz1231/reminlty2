@@ -3,14 +3,14 @@ package com.example.remitly2.controller;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
-
+import com.example.remitly2.dao.ResponseMessage;
 import com.example.remitly2.service.Facade;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -48,15 +48,15 @@ public class DataController {
     } 
 
     @PostMapping()
-    public ResponseEntity<String> addNewData(@RequestBody DataDao dataDao) {
+    public ResponseEntity<ResponseMessage> addNewData(@RequestBody DataDao dataDao) {
         facade.addData(dataDao);
         
-        return new ResponseEntity<>("New data added",HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseMessage("New data added"),HttpStatus.CREATED);
     }
     @DeleteMapping("{swift-code}")
-    public ResponseEntity<String> deleteDataFromSwiftCode(@PathVariable(name="swift-code") String swiftCode){
+    public ResponseEntity<ResponseMessage> deleteDataFromSwiftCode(@PathVariable(name="swift-code") String swiftCode){
         facade.deleteData(swiftCode);
-        return ResponseEntity.ok("Row with swiftCode:"+swiftCode+" deleted");
+        return ResponseEntity.ok(new ResponseMessage("Row with swiftCode:"+swiftCode+" deleted"));
     }
     @GetMapping("/country/{countryISO2code}")
     public ResponseEntity<ResponseFromCountryISO2> getDataFromCountrtyISO2 (
