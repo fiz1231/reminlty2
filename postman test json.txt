@@ -1,11 +1,11 @@
 #adding new data v1/swift-code ; put
 { 
     
-    "adress":"test",
-    "countryISO2":"test",
-    "countryName":"test",
+    "adress":"TEST",
+    "countryISO2":"TEST",
+    "countryName":"TEST"
     "isHeadquarter":true,
-    "swiftCode":"test"
+    "swiftCode":"TEST"
     
 }
 #getting data v1/swift-code/{swiftCode} ; get

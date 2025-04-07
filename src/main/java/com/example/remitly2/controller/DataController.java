@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -46,7 +47,7 @@ public class DataController {
         }
     } 
 
-    @PutMapping()
+    @PostMapping()
     public ResponseEntity<String> addNewData(@RequestBody DataDao dataDao) {
         facade.addData(dataDao);
         
@@ -61,6 +62,6 @@ public class DataController {
     public ResponseEntity<ResponseFromCountryISO2> getDataFromCountrtyISO2 (
         @PathVariable(name="countryISO2code") String countryISO2code){
            
-            return ResponseEntity.ok( facade.getDataFromCountryISO2(countryISO2code));
+            return ResponseEntity.ok(facade.getDataFromCountryISO2(countryISO2code));
         }
 }
