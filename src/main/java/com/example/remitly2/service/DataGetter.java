@@ -69,4 +69,8 @@ class DataGetter {
 
     }
     
+    public List<DataDao> finAdll(){
+        
+        return dataRepository.findAll().stream().map(x->DataMapper.mapDatatoDataDao(x)).toList();
+    }
 }
