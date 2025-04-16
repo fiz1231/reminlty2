@@ -13,3 +13,6 @@ http://localhost:8080/v1/swift-codes/TEST2XXX
 http://localhost:8080/v1/swift-codes/TEST1
 #get rows from countryiso2Code
 http://localhost:8080/v1/swift-codes/country/{countryISO2}
+
+openapi address
+http://localhost:8080/swagger-ui/index.html
