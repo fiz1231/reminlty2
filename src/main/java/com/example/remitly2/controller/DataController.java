@@ -18,6 +18,7 @@ import com.example.remitly2.service.Facade;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,7 @@ public class DataController {
     private final Facade facade;
 
    
-    
+    @CrossOrigin
     @GetMapping("{swiftCode}")
     public ResponseEntity<? super DataDao> getDataFromSwiftEntity (
          @PathVariable(name="swiftCode") String swiftCode){
@@ -52,17 +53,22 @@ public class DataController {
         }
     } 
 
+    @CrossOrigin
     @PostMapping()
     public ResponseEntity<ResponseMessage> addNewData(@RequestBody DataDao dataDao) {
         facade.addData(dataDao);
         
         return new ResponseEntity<>(new ResponseMessage("New data added"),HttpStatus.CREATED);
     }
+    
+    @CrossOrigin
     @DeleteMapping("{swift-code}")
     public ResponseEntity<ResponseMessage> deleteDataFromSwiftCode(@PathVariable(name="swift-code") String swiftCode){
         facade.deleteData(swiftCode);
         return ResponseEntity.ok(new ResponseMessage("Row with swiftCode:"+swiftCode+" deleted"));
     }
+   
+    @CrossOrigin
     @GetMapping("/country/{countryISO2code}")
     public ResponseEntity<ResponseFromCountryISO2> getDataFromCountrtyISO2 (
         @PathVariable(name="countryISO2code") String countryISO2code){
@@ -70,6 +76,7 @@ public class DataController {
             return ResponseEntity.ok(facade.getDataFromCountryISO2(countryISO2code));
         }
 
+    @CrossOrigin
     @PutMapping("{swift-code}")
     public ResponseEntity<ResponseMessage> modifyRow(@PathVariable (name ="swift-code" )String swift,@RequestBody DataDao datainput){
         
@@ -78,6 +85,8 @@ public class DataController {
         return ResponseEntity.ok(new ResponseMessage("Row has been updated"));
 
     }
+    
+    @CrossOrigin
     @GetMapping("/all")
     public ResponseEntity<ResponseFindAll> getAllEntities() {
         
