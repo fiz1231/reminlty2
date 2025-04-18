@@ -1,5 +1,7 @@
 package com.example.remitly2.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.remitly2.dao.DataDao;
+import com.example.remitly2.dao.ResponseFindAll;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
 import com.example.remitly2.dao.ResponseMessage;
@@ -19,8 +22,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/v1/swift-codes")
@@ -64,4 +69,19 @@ public class DataController {
            
             return ResponseEntity.ok(facade.getDataFromCountryISO2(countryISO2code));
         }
-}
+
+    @PutMapping("{swift-code}")
+    public ResponseEntity<ResponseMessage> modifyRow(@PathVariable (name ="swift-code" )String swift,@RequestBody DataDao datainput){
+        
+        facade.editRow(swift,datainput);
+
+        return ResponseEntity.ok(new ResponseMessage("Row has been updated"));
+
+    }
+    @GetMapping("/all")
+    public ResponseEntity<ResponseFindAll> getAllEntities() {
+        
+        return ResponseEntity.ok(new ResponseFindAll(facade.findAll()));
+    }
+    
+    }

@@ -6,6 +6,6 @@ import com.example.remitly2.repository.DataRepository;
 public class FacadeConfiguration {
     public static Facade createCodeSwiftCrudFacade(final DataRepository repository){
         return new Facade
-        (new DataAdder(repository),new DataDeleter(repository),new DataGetter(repository));
+        (new DataAdder(repository),new DataDeleter(repository),new DataGetter(repository),new DataEditor(repository));
     }
 }

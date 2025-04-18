@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import org.assertj.core.api.Assertions;
 import com.example.remitly2.dao.DataDao;
+import com.example.remitly2.dao.ResponseFindAll;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
 import com.example.remitly2.dao.ResponseHeadquarterSwiftCode;
 import com.example.remitly2.service.*;;
@@ -107,6 +108,37 @@ public class UnitTests {
             Assertions.assertThat(e.getMessage()=="No value present");
         }
        
+        
+    }
+    @Test
+    @Description("Should update row")
+    public void testUpdatingRow(){
+        // get
+        DataDao testingData = new DataDao(Long.parseLong("5"),"TESTADDRESS","TESTCOUNTRYISO2"
+        ,true,"TESTSWIFTCODE5","TESTCOUNTRYNAME");
+        testFacade.addData(testingData);
+        DataDao updatedData = new DataDao(Long.parseLong("6"),"UPDATEDADDRESS","UPDATEDCOUNTRYISO2"
+        ,true,"UPDATEDSWIFTCODE5","UPDATEDCOUNTRYNAME");
+        // when
+        testFacade.editRow(testingData.getSwiftCode(),updatedData);
+        // then
+        DataDao result =  testFacade.getDetailsFromSwiftCode("UPDATEDSWIFTCODE5");
+        Assertions.assertThat(result.equals(updatedData));
+
+    }
+    @Test
+    @Description("should return all one rows")
+    public void testFindAll(){
+        //given
+        DataDao testingData = new DataDao(Long.parseLong("5"),"TESTADDRESS","TESTCOUNTRYISO2"
+        ,true,"TESTSWIFTCODE5","TESTCOUNTRYNAME");
+        testFacade.addData(testingData);
+        List<DataDao> testingResult= new ArrayList<>();
+        testingResult.add(testingData);
+
+        ResponseFindAll probe = new ResponseFindAll(testingResult);
+        //when then
+        Assertions.assertThat(testFacade.findAll().equals(probe));
         
     }
 }

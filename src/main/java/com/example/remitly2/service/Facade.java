@@ -1,4 +1,6 @@
 package com.example.remitly2.service;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.example.remitly2.dao.DataDao;
 import com.example.remitly2.dao.ResponseFromCountryISO2;
@@ -13,6 +15,7 @@ public class Facade {
     private final DataAdder dataAdder;
     private final DataDeleter dataDeleter;
     private final DataGetter dataGetter;
+    private final DataEditor dataeditor;
 
    
 
@@ -41,6 +44,14 @@ public class Facade {
         result.setCountryISO2(countryISO2);
         result.setCountryName(result.getSwiftCodes().get(0).getCountryName());
         return result;
+    }
+    public void editRow(String stiwftCode,DataDao inputData){
+        
+        dataeditor.editRow(stiwftCode, inputData);
+    }
+    
+    public List<DataDao> findAll(){
+        return dataGetter.finAdll();
     }
 
 }

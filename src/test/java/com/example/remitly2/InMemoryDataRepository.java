@@ -45,4 +45,18 @@ public class InMemoryDataRepository implements DataRepository {
            
            return this.db.values().stream().filter(x->x.getId().longValue()==id.longValue()).toList();
         }
+        @Override
+        public void editRow(String swiftParam, String newAddress, String newcountry_iso, Boolean newIsHeadQuarter,
+                String newSwiftCode, String countryName) {
+            // TODO Auto-generated method stub
+            Data input= new Data(Long.valueOf(0),newAddress,newcountry_iso,newIsHeadQuarter,newSwiftCode,countryName);
+            Optional<Long> key =db.keySet().stream().filter(x->db.get(x).getSwiftCode()==swiftParam).findAny();
+            db.replace(key.get(), input);
+        }
+        @Override
+        public List<Data> findAll() {
+            // TODO Auto-generated method stub
+            return db.values().stream().toList();
+        }
+        
 }
