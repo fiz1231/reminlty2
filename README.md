@@ -126,7 +126,42 @@ endpoints.
     { 
         "message": string, 
     }
-
+##### Endpoint 5: Return all rows in table
+     GET:  /v1/swift-codes/all: 
+        Response Structure : 
+         
+        { 
+            "result": [
+            { 
+        "address": string, 
+        "bankName": string, 
+        "countryISO2": string, 
+        "countryName": string, 
+        “isHeadquarter”: bool, 
+        "swiftCode": string, 
+    } , 
+    ...
+            ]
+        } 
+##### Endpoint 6: Edit swiftCode row 
+     PUT:  /v1/swift-codes/{swift-code}:
+         Request Structure : 
+         
+         { 
+            "address": string, 
+            "bankName": string, 
+            "countryISO2": string, 
+            "countryName": string, 
+            “isHeadquarter”: bool, 
+            "swiftCode": string, 
+        }
+        
+         Response Structure:  
+     
+            { 
+                "message": string, 
+            }
+     
 ## Key Expectations:
     Verify that all endpoints and responses align with the structure outlined in the exercise description. 
     
@@ -135,3 +170,7 @@ endpoints.
     Provide thorough unit and integration tests to ensure reliability.
     
     Containerize the application and database, ensuring the endpoints are accessible at localhost:8080.
+    
+## How to Install and Run 
+Downolad project and unpack.
+Use Spring Boot to run application. You can use Visual Studio Code with Spring Boot Dashboard for VS Code extension or navigate to the root of the project via command line and execute the command mvn spring-boot:run.I presume you have maven installed and correctly added maven to your environment variable. Make sure that to set application port to run(default 8080), database password, username and url in src/main/resources/applicatiion.properties. Tables will be created automatically.
