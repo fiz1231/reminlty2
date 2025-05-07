@@ -36,7 +36,6 @@ endpoints.
     { 
     } 
     "address": string, 
-    "bankName": string, 
     "countryISO2": string, 
     "countryName": string, 
     "isHeadquarter": bool, 
@@ -44,14 +43,12 @@ endpoints.
     “branches”: [ 
     { 
     "address": string, 
-    "bankName": string, 
     "countryISO2": string, 
     "isHeadquarter": bool, 
     "swiftCode": string 
     }, 
     { 
     "address": string, 
-    "bankName": string, 
     "countryISO2": string, 
     "isHeadquarter": bool, 
     "swiftCode": string 
@@ -62,7 +59,6 @@ endpoints.
      
     { 
         "address": string, 
-        "bankName": string, 
         "countryISO2": string, 
         "countryName": string, 
         "isHeadquarter": bool, 
@@ -81,14 +77,12 @@ endpoints.
         "swiftCodes": [ 
             { 
                 "address": string, 
-           "bankName": string, 
            "countryISO2": string, 
            "isHeadquarter": bool, 
            "swiftCode": string 
             }, 
             { 
                 "address": string, 
-           "bankName": string, 
            "countryISO2": string, 
            "isHeadquarter": bool, 
            "swiftCode": string 
@@ -106,7 +100,6 @@ endpoints.
      
      { 
         "address": string, 
-        "bankName": string, 
         "countryISO2": string, 
         "countryName": string, 
         “isHeadquarter”: bool, 
@@ -134,7 +127,6 @@ endpoints.
             "result": [
             { 
         "address": string, 
-        "bankName": string, 
         "countryISO2": string, 
         "countryName": string, 
         “isHeadquarter”: bool, 
@@ -149,7 +141,6 @@ endpoints.
          
          { 
             "address": string, 
-            "bankName": string, 
             "countryISO2": string, 
             "countryName": string, 
             “isHeadquarter”: bool, 
